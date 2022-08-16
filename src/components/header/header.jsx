@@ -16,6 +16,11 @@ export default function Header() {
         navigate('/home');
     }
 
+    const moveToMovieList = () =>{
+        const target = document.getElementById("movieList");
+        target.scrollIntoView({behavior: "smooth"});
+    }
+    
     return (
         <header className="home-header">
             <nav className="navbar align-items-center navbar-expand-sm navbar-light">
@@ -31,7 +36,7 @@ export default function Header() {
                             <NavLink className="nav-link" to="/home"> Home </NavLink>
                         </li>
                         <li className="nav-item ">
-                            <a className="nav-link" href="#movieList"> Movies </a>
+                            <Link className="nav-link" to="/home#movieList" onClick={moveToMovieList}> Movies </Link>
                         </li>
                         <li className="nav-item ">
                             <a className="nav-link" href="#news"> News </a>

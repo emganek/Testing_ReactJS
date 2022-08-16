@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchMovieListAPI } from '../../services/movies';
 import "./index.css"
 import { Modal } from 'antd';
@@ -10,6 +10,7 @@ export default function MovieList() {
     const [movieList, setMovieList] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [trailerLink, setTrailerLink] = useState("");
+    const location = useLocation();
 
     const iframeRef = useRef(null)
 
@@ -46,9 +47,12 @@ export default function MovieList() {
     }, []);
 
     const fetchMovieList = async () => {
-        const movieList = await (await fetchMovieListAPI()).data.content
+        const movieList = await (await fetchMovieListAPI()).data.content;
+        if (location.hash === "#movieList"){
+            const target = document.getElementById("movieList");
+            target.scrollIntoView({behavior: "smooth"});
+        }
         setMovieList(movieList);
-        console.log(movieList)
     }
 
     const renderNowShowingMovieList = () => {
